@@ -1,0 +1,92 @@
+function createTable(tableData) {
+    var table = document.createElement('table');
+    table.setAttribute("id","tbl");
+    var tableBody = document.createElement('tbody');
+    tableData.forEach(function(rowData) {
+      var row = document.createElement('tr');
+      rowData.forEach(function(cellData) {
+        var cell = document.createElement('td');
+        cell.appendChild(document.createTextNode(cellData));
+        row.appendChild(cell);
+      });
+      tableBody.appendChild(row);
+    });
+    table.appendChild(tableBody);
+    document.getElementById('div').appendChild(table);
+  }
+  function tryit(arr){
+    document
+      .getElementById("tabla")
+      .innerHTML="<tr><td>"+String(arr)
+      .replace(/--,/g,"</td></tr><tr><td>")
+      .replace(/__,/g,"</td><td>");
+  }
+
+
+
+function px(x,y,n) {
+    x+=(x+1>=n) ? -x : 1;
+    return x;
+}
+function py(x,y,n) {
+    y=(y-1<0) ? n-1 : y-1;
+    return y;
+}
+function onclk(){
+    var tb = document.getElementById('tbl');
+    if (tb != undefined){
+    document.getElementById('div').removeChild(tb);}
+    console.log("ola");
+    console.log(document.getElementById("input").value);
+    var n = document.getElementById("input").value; 
+    if (n%2==0) {alert("El número ingresado es par o 1, intente de nuevo");}
+    else {
+        var cuadrado=[];
+        for (var i= 0; i <n; i++) {
+            cuadrado.push([]);
+            for (var j= 0; j <n; j++) {
+                cuadrado[i].push(0);
+            }
+        }
+
+
+        var x = (n-1)/2+1;
+        var y = (n-1)/2;
+        for (var i = 0; i <n; i++) {
+            for (var j = 0; j < n; j++) {
+                cuadrado[i][j] = 0;
+            }
+        }
+        for (var i=0; i<n*n; i++) {
+            if (i==0) {
+                cuadrado[x][y] = 1;
+                continue;
+            }
+            if (cuadrado[px(x,y,n)][py(x,y,n)]!=0) {
+                for (var j=0; j<2; j++) {
+                    x+=(x+1>=n) ? -x : 1;
+                }
+                cuadrado[x][y] = i+1;
+            }
+            else {
+                x+=(x+1>=n) ? -x : 1;
+                y=(y-1<0) ? n-1 : y-1;
+                cuadrado[x][y] = i+1;
+            }   
+        }
+        for (var k = 0; k < n; k++) {
+            console.log("\n[");
+            for (var i = 0; i <n; i++) {
+                console.log(" %d ", cuadrado[k][i]);
+            }
+            console.log("]");
+        }
+    }
+  createTable(cuadrado);
+  
+}
+
+
+
+  
+  
